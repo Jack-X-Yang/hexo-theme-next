@@ -7,10 +7,14 @@
     <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
     {% if not theme.gitment.lazy %}
         <script type="text/javascript">
+            var tags = [{% if page.tags and page.tags.length %}{% for tag in page.tags %}'{{ tag.name }}',{% endfor %}{% endif %}];
+            var labels = tags.filter(function(element) {return element != null; });
+
             var gitment = new Gitment({
-                id: document.location.href,
+                id: '{{page.title}}',
                 owner: '{{owner}}',
                 repo: '{{repo}}',
+                labels: labels,
                 oauth: {
                     client_id: '{{cid}}',
                     client_secret: '{{cs}}',
@@ -22,10 +26,14 @@
             function ShowGitment(){
                 document.getElementById("gitment-display-button").style.display = "none";
                 document.getElementById("gitment-container").style.display = "block";
+                var tags = [{% if page.tags and page.tags.length %}{% for tag in page.tags %}'{{ tag.name }}',{% endfor %}{% endif %}];
+                var labels = tags.filter(function(element) {return element != null; });
+
                 var gitment = new Gitment({
-                    id: document.location.href,
+                    id: '{{page.title}}',
                     owner: '{{owner}}',
                     repo: '{{repo}}',
+                    labels: labels,
                     oauth: {
                         client_id: '{{cid}}',
                         client_secret: '{{cs}}',
